@@ -1,0 +1,9 @@
+services:
+  app:
+    image: ghcr.io/quockhanh020924/music-moment-service:latest
+    build:
+      context: .
+    restart: unless-stopped
+    ports:
+      - "${PORT:-8080}:${PORT:-8080}"
+    env_file: .env
