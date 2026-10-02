@@ -1,6 +1,6 @@
 services:
   app:
-    image: ghcr.io/quockhanh020924/music-moment-service:latest
+    image: ghcr.io/khanh29204/music-moment-service:latest
     build:
       context: .
     restart: unless-stopped
