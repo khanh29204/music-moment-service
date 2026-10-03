@@ -6,7 +6,7 @@ Tài liệu luồng tổng thể: xem `music-injection-flow.md` (file đi kèm t
 
 ## Cách hoạt động
 
-File MP3 từ [yt-metadata-service](https://github.com/quockhanh020924/yt-metadata-service) luôn là **64kbps CBR, 44.100Hz, không ID3, không bit reservoir**, nên có thể tính chính xác byte offset từ mốc thời gian mà không cần decode:
+File MP3 từ [yt-metadata-service](https://github.com/khanh29204/yt-metadata-service) luôn là **64kbps CBR, 44.100Hz, không ID3, không bit reservoir**, nên có thể tính chính xác byte offset từ mốc thời gian mà không cần decode:
 
 - Frame duration ≈ 26,12245 ms (`1152 / 44100`), average frame size ≈ 208,97959 bytes.
 - `start` dùng `floor`, `end` dùng `ceil`, ép `endFrame ≥ startFrame + 1` — đoạn cắt không hụt cuối, không rỗng.
