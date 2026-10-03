@@ -7,6 +7,7 @@ pub struct Config {
     pub mongodb_db: String,
     pub redis_url: String,
     pub api_key: Option<String>,
+    pub cors_origins: Option<Vec<String>>,
 }
 
 impl Config {
@@ -21,6 +22,9 @@ impl Config {
             mongodb_db: required("MONGODB_DB")?,
             redis_url: required("REDIS_URL")?,
             api_key: env::var("API_KEY").ok().filter(|v| !v.trim().is_empty()),
+            cors_origins: env::var("CORS_ORIGINS").ok().map(|v| {
+                v.split(',').map(|s| s.trim().to_string()).filter(|s| !s.is_empty()).collect()
+            }),
         })
     }
 }

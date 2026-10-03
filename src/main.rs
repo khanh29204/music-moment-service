@@ -51,7 +51,23 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         http_client: reqwest::Client::new(),
         api_key: config.api_key,
     });
-    let app: Router = routes::router(state).layer(
+    // CORS_ORIGINS unset/rỗng → cho mọi origin; set → chỉ các origin liệt kê (phẩy-separated)
+    let cors = match &config.cors_origins {
+        Some(origins) => tower_http::cors::CorsLayer::new()
+            .allow_origin(
+                origins
+                    .iter()
+                    .filter_map(|o| o.parse::<axum::http::HeaderValue>().ok())
+                    .collect::<Vec<_>>(),
+            )
+            .allow_methods(tower_http::cors::Any)
+            .allow_headers([
+                axum::http::header::CONTENT_TYPE,
+                axum::http::header::HeaderName::from_static("x-api-key"),
+            ]),
+        None => tower_http::cors::CorsLayer::permissive(),
+    };
+    let app: Router = routes::router(state).layer(cors).layer(
         TraceLayer::new_for_http()
             .make_span_with(|req: &axum::extract::Request| {
                 tracing::info_span!(

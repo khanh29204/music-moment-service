@@ -46,7 +46,10 @@ MONGODB_URI=mongodb+srv://...
 MONGODB_DB=locket
 REDIS_URL=redis://...
 API_KEY=...
+CORS_ORIGINS=https://example.com,https://app.example.com
 ```
+
+`CORS_ORIGINS` là danh sách origin phân tách bởi dấu phẩy. Không set → cho mọi origin.
 
 Local:
 
