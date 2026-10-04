@@ -10,8 +10,8 @@ use std::sync::Arc;
 
 pub fn router(state: Arc<AppState>) -> Router {
     let protected = Router::new()
-        .route("/moments", post(moments::save))
-        .route("/moments/:moment_id", get(moments::get))
+        .route("/songs/moment", post(moments::save))
+        .route("/songs/moment/:moment_id", get(moments::get))
         .layer(middleware::from_fn_with_state(
             state.clone(),
             require_api_key,

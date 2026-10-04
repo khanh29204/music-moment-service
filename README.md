@@ -24,7 +24,7 @@ Public (không cần key). Stream đoạn nhạc `[start, end)` từ S3 dưới 
 - `start`/`end` là ms, `end > start` bắt buộc.
 - Lỗi: `400` thiếu/invalid tham số, `502` upstream lỗi.
 
-### `POST /moments`
+### `POST /songs/moment`
 
 Lưu mapping `momentId → inject link` (upsert, trả `201` nếu mới tạo, `200` nếu cập nhật).
 
@@ -32,7 +32,7 @@ Lưu mapping `momentId → inject link` (upsert, trả `201` nếu mới tạo, 
 { "momentId": "abc123", "url": "https://.../songs/stream?..." }
 ```
 
-### `GET /moments/:moment_id`
+### `GET /songs/moment/:moment_id`
 
 Trả `{ "url": "<inject link>" }` cho client ghi đè `preview_url`. Không có → `404`.
 
